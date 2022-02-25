@@ -1,0 +1,29 @@
+import requests
+from urllib3 import disable_warnings
+from urllib3.exceptions import InsecureRequestWarning
+
+disable_warnings(InsecureRequestWarning)
+
+payload="""
+    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.cisco.com/AXL/API/12.5">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ns:listRoutePlan sequence="?">
+         <searchCriteria>
+            <!--Optional:-->
+            <dnOrPattern>%</dnOrPattern>
+            
+         </searchCriteria>
+         <returnedTags uuid="?">
+            <!--Optional:-->
+            <dnOrPattern>%</dnOrPattern>
+            
+         </returnedTags>
+         
+      </ns:listRoutePlan>
+   </soapenv:Body>
+</soapenv:Envelope>"""
+
+reply=requests.post("https://172.26.200.120/axl",verify=False,auth=("administrator","n8tjacKer!"),data=payload)
+print(reply.status_code)
+print(reply)
