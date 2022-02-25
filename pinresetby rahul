@@ -1,0 +1,24 @@
+import requests
+
+
+def pin_reset(user_id,new_pin):
+    
+
+    payload=f"""
+    soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.cisco.com/AXL/API/12.5">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <ns:updateUser sequence="?">
+            <userid>{user_id}</userid>
+            <pin>{new_pin}</pin>
+        </ns:updateUser>
+    </soapenv:Body>
+    </soapenv:Envelope>"""
+
+    reply=requests.post("https://172.26.200.120/axl",verify=False,auth=("administrator","n8tjacKer!"),data=payload)
+    print(reply.status_code)
+    print(reply)
+
+user_id=input("enter the user id")
+new_pin=int(input("enter the 5 digit new pin"))
+pin_reset(user_id,new_pin)
